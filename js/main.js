@@ -1,6 +1,9 @@
 var $homeNav = document.querySelector('.nav-home');
 var $homePage = document.querySelector('.home-page');
 var $parksResult = document.querySelector('.parks-list');
+var $searchButton = document.querySelector('.search-button');
+// var $options = document.querySelector('option');
+
 $homeNav.addEventListener('click', homeNavEvent);
 
 function homeNavEvent(event) {
@@ -15,11 +18,13 @@ xhr.responseType = 'json';
 xhr.addEventListener('load', xhrEvent);
 function xhrEvent(event) {
   var parks = xhr.response;
+  // console.log(parks);
   for (var i = 0; i < parks.data.length; i++) {
     var parkInfo = parks.data[i];
     var parkName = parkInfo.fullName;
     var parkImg = parkInfo.images[0].url;
-    // var parkDescription = parkInfo.description;
+    var parkDescription = parkInfo.description;
+    var parkState = parkInfo.states;
 
     var $parkList = document.createElement('li');
 
@@ -29,13 +34,18 @@ function xhrEvent(event) {
 
     var $image = document.createElement('img');
     $image.setAttribute('src', parkImg);
-    $image.setAttribute('class', 'dummy-img');
+    $image.setAttribute('class', 'park-img');
     $columnDiv.appendChild($image);
 
     var $parkName = document.createElement('a');
-    $parkName.setAttribute('href', '#');
+    $parkName.setAttribute('href', parkState);
+    $parkName.setAttribute('class', 'state-link');
     $parkName.textContent = parkName;
     $columnDiv.appendChild($parkName);
+
+    var $parkDescription = document.createElement('p');
+    $parkDescription.textContent = parkDescription;
+    $columnDiv.appendChild($parkDescription);
 
     $ul.appendChild($parkList);
   }
@@ -43,3 +53,36 @@ function xhrEvent(event) {
 xhr.send();
 
 var $ul = document.querySelector('.parks-result');
+
+// var $dropDown = document.querySelector('.state-dropdown');
+
+$searchButton.addEventListener('click', renderSearch);
+// $dropDown.addEventListener('click', renderSearch);
+
+function renderSearch(event) {
+  var parks = xhr.response;
+  for (var i = 0; i < parks.data.length; i++) {
+    // var parkInfo = parks.data[i];
+    // var parkName = parkInfo.fullName;
+    // var parkImg = parkInfo.images[0].url;
+    // var parkDescription = parkInfo.description;
+    // var parkState = parkInfo.states;
+    $homePage.className = 'home-page hidden';
+    $parksResult.className = 'parks-list';
+    var list = [];
+    var select = document.querySelector('.state-dropdown');
+    for (var j = 1; j < select.length; j++) {
+      var swag = select.options[j].value;
+      list.push(swag);
+    }
+  }
+}
+// function returnThis() {
+//   var list = [];
+//   var select = document.querySelector('.state-dropdown');
+//   for (var j = 1; j < select.length; j++) {
+//     var swag = select.options[j].value;
+//     list.push(swag);
+//   }
+//   return list;
+// }
