@@ -1,3 +1,10 @@
+.container {
+  width: 100%;
+  height: auto;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .column-full {
   width: 100%;
 }
@@ -6,12 +13,21 @@
   width: calc(100% / 3);
 }
 
+.column-half {
+  width: 50%;
+}
+
 .row {
   display: flex;
+  flex-wrap: wrap;
 }
 
 header {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.hidden {
+  display: none !important;
 }
