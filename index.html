@@ -24,7 +24,7 @@
   </div>
   <main>
     <div class="container">
-      <div data-view="home-page" class="home-page hidden">
+      <div data-view="home-page" class="home-page">
         <section class="hero">
           <div class="row">
             <div class="column-full">
@@ -34,8 +34,8 @@
         </section>
         <div class="row">
           <form class="search-bar">
-            <select name="Park Search" class="state-dropdown">
-              <option value="placeholder">Search by State</option>
+            <select name="Park Search" class="stateSelect">
+              <option selected disabled>Search by State...</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
               <option value="AS">American Samoa</option>
@@ -93,14 +93,14 @@
               <option value="WI">Wisonsin</option>
               <option value="WY">Wyoming</option>
             </select>
-            <input value="Search" type="submit" class="search-button">
+            <input type="submit" class="search-button" value="Search">
           </form>
         </div>
       </div>
-      <div data-view="parks-list" class="parks-list">
+      <div data-view="parks-result" class="parks-list hidden">
         <div class="row">
           <div class="column-full">
-            <h2 class="result-header">Parks</h2>
+            <h2 class="result-header"></h2>
           </div>
         </div>
         <div class="row">
@@ -109,8 +109,8 @@
         </div>
         <div class="row">
           <form class="search-bar">
-            <select name="Park Search" class="state-dropdown">
-              <option value="placeholder">Search by State</option>
+            <select name="Park Search" class="stateSelect">
+              <option selected disabled>Search by State...</option>
               <option value="AL">Alabama</option>
               <option value="AK">Alaska</option>
               <option value="AS">American Samoa</option>
