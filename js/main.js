@@ -4,20 +4,30 @@ var $parksResult = document.querySelector('.parks-list');
 var $form = document.querySelector('.search-bar');
 var $input = document.querySelector('.search-button');
 var $select = document.querySelector('.stateSelect');
+var $selectedPark = document.querySelector('.selected-park');
 
 $homeNav.addEventListener('click', homeView);
 
 function parksView(event) {
   $homePage.className = 'home-page hidden';
   $parksResult.className = 'parks-list';
+  $selectedPark.className = 'selected-park hidden';
   data.view = 'parks-result';
 }
 
 function homeView(event) {
   $homePage.className = 'home-page';
   $parksResult.className = 'parks-list hidden';
+  $selectedPark.className = 'selected-park hidden';
   data.view = 'home-page';
 }
+
+// function parkInfoView(event) {
+//   $homePage.className = 'home-page hidden';
+//   $parksResult.className = 'parks-list hidden';
+//   $selectedPark.className = 'selected-park';
+//   data.view = 'parks-info';
+// }
 
 var xhr = new XMLHttpRequest();
 xhr.responseType = 'json';
@@ -49,6 +59,7 @@ function getState(name) {
       var $parkName = document.createElement('a');
       $parkName.setAttribute('href', '');
       $parkName.setAttribute('class', 'state-link');
+      $parkName.setAttribute('id', park.id);
       $parkName.textContent = park.fullName;
       $firstColumn.appendChild($parkName);
 
@@ -80,8 +91,8 @@ function formEvent(event) {
 var parkInfoRequest = new XMLHttpRequest();
 parkInfoRequest.responseType = 'json';
 
-function renderStateInfo(parks) {
-  parkInfoRequest.open('GET', 'https://developer.nps.gov/api/v1/parks?limit=466&start=0&q=' + parks + '&api_key=1tk21xLEsdglEhmTVa3WKMvdsPPTz04Mrgd4F9pw');
+function renderStateInfo(parkCode) {
+  parkInfoRequest.open('GET', 'https://developer.nps.gov/api/v1/parks?limit=466&start=0&q=' + parkCode + '&api_key=1tk21xLEsdglEhmTVa3WKMvdsPPTz04Mrgd4F9pw');
   parkInfoRequest.send();
   parkInfoRequest.addEventListener('load', function () {
     var parkInfo = parkInfoRequest.response;
@@ -124,7 +135,7 @@ function renderStateInfo(parks) {
       $parkTextDiv.appendChild($activitiesLabel);
 
       var $activitiesText = document.createElement('p');
-      $activitiesText.textContent = parkData.activities[0].name + ', ' + parkData.activities[1].name;
+      $activitiesText.textContent = parkData.activities[0].name + ', ' + parkData.activities[1].name + ', ' + parkData.activities[2].name + ', ' + parkData.activities[3].name + ', ' + parkData.activities[4].name;
       $parkTextDiv.appendChild($activitiesText);
 
       var $directionsLabel = document.createElement('b');
@@ -149,4 +160,4 @@ function renderStateInfo(parks) {
   });
 }
 
-renderStateInfo('Joshua Tree National Park');
+renderStateInfo('alca');

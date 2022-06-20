@@ -75,6 +75,9 @@ nav a {
 
 .parks-result a {
   color: black;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 24px;
 }
 
 .parks-result li {
