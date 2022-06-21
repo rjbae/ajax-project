@@ -22,12 +22,12 @@ function homeView(event) {
   data.view = 'home-page';
 }
 
-// function parkInfoView(event) {
-//   $homePage.className = 'home-page hidden';
-//   $parksResult.className = 'parks-list hidden';
-//   $selectedPark.className = 'selected-park';
-//   data.view = 'parks-info';
-// }
+function parkInfoView(event) {
+  $homePage.className = 'home-page hidden';
+  $parksResult.className = 'parks-list hidden';
+  $selectedPark.className = 'selected-park';
+  data.view = 'parks-info';
+}
 
 var xhr = new XMLHttpRequest();
 xhr.responseType = 'json';
@@ -57,11 +57,16 @@ function getState(name) {
       $firstColumn.appendChild($image);
 
       var $parkName = document.createElement('a');
-      $parkName.setAttribute('href', '');
+      $parkName.setAttribute('href', '#');
       $parkName.setAttribute('class', 'state-link');
       $parkName.setAttribute('id', park.id);
       $parkName.textContent = park.fullName;
       $firstColumn.appendChild($parkName);
+
+      $parkName.addEventListener('click', function (event) {
+        parkInfoView();
+        renderStateInfo(event.target.id);
+      });
 
       var $secondColumn = document.createElement('div');
       $secondColumn.setAttribute('class', 'column-half');
@@ -159,5 +164,3 @@ function renderStateInfo(parkCode) {
     }
   });
 }
-
-renderStateInfo('alca');
