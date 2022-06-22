@@ -1,11 +1,10 @@
 /* exported data */
 var data = {
-  view: 'my-parks-page',
   myParks: [],
-  resultsId: 1
+  myParksId: 1
 };
 
-var myParks = localStorage.getItem('data-parks');
+var myParks = localStorage.getItem('my-parks');
 
 window.addEventListener('beforeunload', unloadEvent);
 
@@ -15,5 +14,5 @@ if (myParks !== null) {
 
 function unloadEvent(event) {
   var resultsJSON = JSON.stringify(data);
-  localStorage.setItem('data-parks', resultsJSON);
+  localStorage.setItem('my-parks', resultsJSON);
 }

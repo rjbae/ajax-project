@@ -209,6 +209,26 @@ nav a {
 .my-parks-img {
   width: 600px;
   height: 400px;
-  object-fit: contain;
-  padding: 20px;
+  object-fit: cover;
+  padding: 10px;
+}
+
+.my-parks-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  text-align: center;
+}
+
+.park-link {
+  color: black;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.remove-park {
+  color: red;
+  font-size: 1.5rem;
 }
