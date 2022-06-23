@@ -5,13 +5,19 @@ var $form = document.querySelector('.search-bar');
 var $input = document.querySelector('.search-button');
 var $select = document.querySelector('.stateSelect');
 var $selectedPark = document.querySelector('.selected-park');
+var $myParksPage = document.querySelector('.my-parks');
+var $myParksNav = document.querySelector('.nav-parks');
+// var $myParksList = document.querySelector('.my-parks-list');
 
 $homeNav.addEventListener('click', homeView);
+$myParksNav.addEventListener('click', myParksView);
 
+// View swapping
 function parksView(event) {
   $homePage.className = 'home-page hidden';
   $parksResult.className = 'parks-list';
   $selectedPark.className = 'selected-park hidden';
+  $myParksPage.className = 'my-parks hidden';
   data.view = 'parks-result';
 }
 
@@ -19,6 +25,7 @@ function homeView(event) {
   $homePage.className = 'home-page';
   $parksResult.className = 'parks-list hidden';
   $selectedPark.className = 'selected-park hidden';
+  $myParksPage.className = 'my-parks hidden';
   data.view = 'home-page';
 }
 
@@ -26,14 +33,24 @@ function parkInfoView(event) {
   $homePage.className = 'home-page hidden';
   $parksResult.className = 'parks-list hidden';
   $selectedPark.className = 'selected-park';
+  $myParksPage.className = 'my-parks hidden';
   data.view = 'parks-info';
 }
 
+function myParksView(event) {
+  $homePage.className = 'home-page hidden';
+  $parksResult.className = 'parks-list hidden';
+  $selectedPark.className = 'selected-park hidden';
+  $myParksPage.className = 'my-parks';
+  data.view = 'my-parks-page';
+}
+
+// Drop down search results
 var xhr = new XMLHttpRequest();
 xhr.responseType = 'json';
 
 function getState(name) {
-  xhr.open('GET', 'https://developer.nps.gov/api/v1/parks?limit=466&start=0&q=' + name + '&api_key=1tk21xLEsdglEhmTVa3WKMvdsPPTz04Mrgd4F9pw');
+  xhr.open('GET', 'https://developer.nps.gov/api/v1/parks?stateCode=' + name + '&stateCode=&limit=447&start=0&q=National%20Parks&api_key=1tk21xLEsdglEhmTVa3WKMvdsPPTz04Mrgd4F9pw');
   xhr.send();
   xhr.addEventListener('load', function () {
     var parks = xhr.response;
@@ -59,7 +76,7 @@ function getState(name) {
       var $parkName = document.createElement('a');
       $parkName.setAttribute('href', '#');
       $parkName.setAttribute('class', 'state-link');
-      $parkName.setAttribute('id', park.id);
+      $parkName.setAttribute('id', park.parkCode);
       $parkName.textContent = park.fullName;
       $firstColumn.appendChild($parkName);
 
@@ -93,11 +110,12 @@ function formEvent(event) {
   $form.reset();
 }
 
+// Park Info Page
 var parkInfoRequest = new XMLHttpRequest();
 parkInfoRequest.responseType = 'json';
 
 function renderStateInfo(parkCode) {
-  parkInfoRequest.open('GET', 'https://developer.nps.gov/api/v1/parks?limit=466&start=0&q=' + parkCode + '&api_key=1tk21xLEsdglEhmTVa3WKMvdsPPTz04Mrgd4F9pw');
+  parkInfoRequest.open('GET', 'https://developer.nps.gov/api/v1/parks?parkCode=' + parkCode + '&parkCode=&stateCode=&limit=447&start=0&q=National%20Parks&api_key=1tk21xLEsdglEhmTVa3WKMvdsPPTz04Mrgd4F9pw');
   parkInfoRequest.send();
   parkInfoRequest.addEventListener('load', function () {
     var parkInfo = parkInfoRequest.response;
@@ -120,6 +138,7 @@ function renderStateInfo(parkCode) {
 
       var $header = document.createElement('h2');
       $header.setAttribute('class', 'selected-park-name');
+      $header.setAttribute('id', data.myParksId);
       $header.textContent = parkData.fullName;
       $column.appendChild($header);
 
@@ -157,10 +176,59 @@ function renderStateInfo(parkCode) {
 
       var $myParksButton = document.createElement('button');
       $myParksButton.setAttribute('type', 'button');
+      $myParksButton.setAttribute('id', 'myParksButton');
       $myParksButton.textContent = 'Add to My Parks';
       $buttonDiv.appendChild($myParksButton);
 
       $selectedPark.appendChild($row);
+
+      // Modal Event
+      var $modalContainer = document.querySelector('.modal-container');
+      $myParksButton.addEventListener('click', function () {
+        $modalContainer.className = 'modal-container background';
+      });
+
+      var $noButton = document.querySelector('.no-button');
+      $noButton.addEventListener('click', function () {
+        $modalContainer.className = 'modal-container hidden';
+      });
+
+      var $yesButton = document.querySelector('.yes-button');
+      $yesButton.addEventListener('click', function () {
+        $modalContainer.className = 'modal-container hidden';
+        myParksView();
+        var myParksList = {};
+        myParksList.name = parkData.fullName;
+        data.myParks.unshift(myParksList);
+        data.myParksId++;
+      });
     }
   });
 }
+
+// function renderMyParks(parkData) {
+//   var $li = document.createElement('li');
+
+// var $myParksImg = document.createElement('img');
+// $myParksImg.setAttribute('src', parkData.img[0].url);
+// $li.appendChild($myParksImg);
+
+//   var $pElement = document.createElement('p');
+//   $li.appendChild($pElement);
+
+//   var $aElement = document.createElement('a');
+//   $aElement.setAttribute('href', '#');
+//   $aElement.setAttribute('class', 'park-link');
+//   $aElement.textContent = parkData.fullName;
+//   $pElement.appendChild($aElement);
+
+//   var $removeP = document.createElement('p');
+//   $li.appendChild($removeP);
+
+//   var $removeA = document.createElement('a');
+//   $removeA.setAttribute('href', '#');
+//   $removeA.setAttribute('class', 'remove-park');
+//   $removeP.appendChild($removeA);
+
+//   $myParksList.appendChild($li);
+// }

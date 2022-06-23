@@ -2,7 +2,7 @@
 header {
   background-color: #054d28;
   color: white;
-  font-size: 24px;
+  font-size: 1.5rem;
   display: flex;
   justify-content: left;
   padding-left: 2.5rem;
@@ -11,7 +11,7 @@ header {
 nav a {
   text-decoration: none;
   color: white;
-  font-size: 24px;
+  font-size: 1.5rem;
   padding-left: 2.5rem;
 }
 
@@ -27,7 +27,7 @@ nav a {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 /* Search Bar Section */
@@ -36,7 +36,7 @@ nav a {
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  padding: 50px;
+  padding: 3.125rem;
   background-color: #054d28;
   width: 100%;
 }
@@ -46,11 +46,11 @@ nav a {
   height: 2.5rem;
   border: none;
   border-radius: 5px;
-  font-size: 20px;
-  padding: 10px;
+  font-size: 1.25rem;
+  padding: 0.625rem;
   background-color: slategray;
   color: black;
-  margin: 10px;
+  margin: 0.625rem;
   cursor: pointer;
 }
 
@@ -58,12 +58,12 @@ nav a {
   width: 35rem;
   height: 2.5rem;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: center;
 }
 
 .result-header {
-  font-size: 50px;
+  font-size: 3.125rem;
   margin-left: 3rem;
 }
 
@@ -77,11 +77,11 @@ nav a {
   color: black;
   text-decoration: underline;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .parks-result li {
-  font-size: 30px;
+  font-size: 1.875rem;
   text-align: center;
 }
 
@@ -93,7 +93,7 @@ nav a {
 }
 
 .parks-result p {
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 /* Park Info Page */
@@ -101,7 +101,7 @@ nav a {
 .park-info-img {
   width: 100%;
   height: 600px;
-  padding: 15px;
+  padding: 0.938rem;
   object-fit: cover;
 }
 
@@ -109,13 +109,13 @@ nav a {
   text-decoration: underline;
   text-align: center;
   font-family: sans-serif;
-  font-size: 30px;
+  font-size: 1.875rem;
 }
 
 .park-text {
   text-align: left;
   line-height: 2em;
-  font-size: 18px;
+  font-size: 1.125rem;
   margin-left: 2rem;
   margin-right: 2rem;
   font-family: sans-serif;
@@ -137,4 +137,98 @@ nav a {
   width: 12rem;
   cursor: pointer;
   font-size: 20px;
+}
+
+/* Modal */
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.modal-content {
+  background-color: #054d28;
+  text-align: center;
+  width: 400px;
+  height: 200px;
+  border-radius: 5px;
+  color: white;
+}
+
+.modal-content h3 {
+  font-size: 1.875rem;
+  font-family: sans-serif;
+  margin-bottom: 3.125rem;
+}
+
+.background {
+  background-color: rgb(0 0 0 / 70%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.yes-button {
+  background-color: beige;
+  color: green;
+  border: none;
+  border-radius: 5px;
+  width: 4rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.no-button {
+  background-color: beige;
+  color: red;
+  border: none;
+  border-radius: 5px;
+  width: 4rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.modal-content button {
+  margin-left: 0.938rem;
+  margin-right: 0.938rem;
+}
+
+/* My Parks Page */
+
+.my-parks-header {
+  font-size: 3.125rem;
+  margin-left: 3rem;
+}
+
+.my-parks-img {
+  width: 600px;
+  height: 400px;
+  object-fit: cover;
+  padding: 0.625rem;
+}
+
+.my-parks-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  text-align: center;
+}
+
+.park-link {
+  color: black;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.remove-park {
+  color: red;
+  font-size: 1.5rem;
 }
