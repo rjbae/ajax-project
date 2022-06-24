@@ -200,6 +200,7 @@ function renderStateInfo(parkCode) {
         var myParksList = {};
         myParksList.name = parkData.fullName;
         myParksList.img = parkData.images[0].url;
+        myParksList.parkCode = parkData.parkCode;
         myParksList.id = data.myParksId;
         data.myParks.unshift(myParksList);
         data.myParksId++;
@@ -210,36 +211,6 @@ function renderStateInfo(parkCode) {
   });
 }
 
-function renderMyParks(parkData) {
-  var $li = document.createElement('li');
-  $li.setAttribute('id', parkData.id);
-
-  var $myParksImg = document.createElement('img');
-  $myParksImg.setAttribute('src', parkData.img);
-  $myParksImg.setAttribute('class', 'my-parks-img');
-  $li.appendChild($myParksImg);
-
-  var $pElement = document.createElement('p');
-  $li.appendChild($pElement);
-
-  var $aElement = document.createElement('a');
-  $aElement.setAttribute('href', '#');
-  $aElement.setAttribute('class', 'park-link');
-  $aElement.textContent = parkData.name;
-  $pElement.appendChild($aElement);
-
-  var $removeP = document.createElement('p');
-  $li.appendChild($removeP);
-
-  var $removeA = document.createElement('a');
-  $removeA.textContent = 'Remove Park';
-  $removeA.setAttribute('href', '#');
-  $removeA.setAttribute('class', 'remove-park');
-  $removeP.appendChild($removeA);
-
-  return $li;
-}
-
 document.addEventListener('DOMContentLoaded', domContentLoaded);
 
 function domContentLoaded(event) {
@@ -248,12 +219,84 @@ function domContentLoaded(event) {
     $myParksList.appendChild(myParksResult);
   }
 }
+
+function renderMyParks(parkData) {
+
+  var $li = document.createElement('li');
+  $li.setAttribute('id', parkData.id);
+  $li.setAttribute('class', 'my-parks-li');
+
+  var $myParksImg = document.createElement('img');
+  $myParksImg.setAttribute('src', parkData.img);
+  $myParksImg.setAttribute('class', 'my-parks-img');
+  $li.appendChild($myParksImg);
+
+  var $parkName = document.createElement('p');
+  $li.appendChild($parkName);
+
+  var $aElement = document.createElement('a');
+  $aElement.setAttribute('href', '#');
+  $aElement.setAttribute('class', 'park-link');
+  $aElement.setAttribute('id', parkData.parkCode);
+  $aElement.textContent = parkData.name;
+  $parkName.appendChild($aElement);
+
+  var $removeP = document.createElement('p');
+  $removeP.setAttribute('class', 'remove-text');
+  $li.appendChild($removeP);
+
+  var $removeA = document.createElement('a');
+  $removeA.textContent = 'Remove Park';
+  $removeA.setAttribute('href', '#');
+  $removeA.setAttribute('class', 'remove-park');
+  $removeP.appendChild($removeA);
+
+  $aElement.addEventListener('click', function (event) {
+    parkInfoView();
+    renderStateInfo(event.target.id);
+  });
+
+  var $myParksModal = document.querySelector('.my-parks-modal');
+  $removeP.addEventListener('click', function () {
+    $myParksModal.className = 'my-parks-modal background';
+  });
+
+  return $li;
+}
+
+var $myParksModal = document.querySelector('.my-parks-modal');
+
+var $noButton = document.querySelector('.remove-no');
+$noButton.addEventListener('click', function () {
+  $myParksModal.className = 'my-parks-modal hidden';
+});
+
+var $yesButton = document.querySelector('.remove-yes');
+$yesButton.addEventListener('click', function (event) {
+  $myParksModal.className = 'my-parks-modal hidden';
+  var list = document.querySelector('.my-parks-li');
+  var listId = list.getAttribute('id');
+  var listNodes = document.querySelectorAll('.my-parks-li');
+  for (var i = 0; i < listNodes.length; i++) {
+    if (listNodes[i].getAttribute('id') === listId) {
+      listNodes[i].remove();
+    }
+  }
+  for (i = 0; i < data.myParks.length; i++) {
+    if (listId === data.myParks[i].id.toString()) {
+      data.myParks.splice(i, 1);
+      data.myParksId--;
+    }
+  }
+  myParksView();
+});
+
 if (data.view === 'home-page') {
   homeView();
 } else if (data.view === 'parks-result') {
   parksView();
 } else if (data.view === 'parks-info') {
   parkInfoView();
-} else {
+} else if (data.view === 'my-parks-page') {
   myParksView();
 }
