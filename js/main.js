@@ -211,10 +211,20 @@ function renderStateInfo(parkCode) {
   });
 }
 
+document.addEventListener('DOMContentLoaded', domContentLoaded);
+
+function domContentLoaded(event) {
+  for (var i = 0; i < data.myParks.length; i++) {
+    var myParksResult = renderMyParks(data.myParks[i]);
+    $myParksList.appendChild(myParksResult);
+  }
+}
+
 function renderMyParks(parkData) {
 
   var $li = document.createElement('li');
   $li.setAttribute('id', parkData.id);
+  $li.setAttribute('class', 'my-parks-li');
 
   var $myParksImg = document.createElement('img');
   $myParksImg.setAttribute('src', parkData.img);
@@ -232,6 +242,7 @@ function renderMyParks(parkData) {
   $parkName.appendChild($aElement);
 
   var $removeP = document.createElement('p');
+  $removeP.setAttribute('class', 'remove-text');
   $li.appendChild($removeP);
 
   var $removeA = document.createElement('a');
@@ -250,23 +261,35 @@ function renderMyParks(parkData) {
     $myParksModal.className = 'my-parks-modal background';
   });
 
-  var $noButton = document.querySelector('.remove-no');
-  $noButton.addEventListener('click', function () {
-    $myParksModal.className = 'my-parks-modal hidden';
-  });
-
-  // var $yesButton = document.querySelector('.remove-yes');
   return $li;
 }
 
-document.addEventListener('DOMContentLoaded', domContentLoaded);
+var $myParksModal = document.querySelector('.my-parks-modal');
 
-function domContentLoaded(event) {
-  for (var i = 0; i < data.myParks.length; i++) {
-    var myParksResult = renderMyParks(data.myParks[i]);
-    $myParksList.appendChild(myParksResult);
+var $noButton = document.querySelector('.remove-no');
+$noButton.addEventListener('click', function () {
+  $myParksModal.className = 'my-parks-modal hidden';
+});
+
+var $yesButton = document.querySelector('.remove-yes');
+$yesButton.addEventListener('click', function (event) {
+  $myParksModal.className = 'my-parks-modal hidden';
+  var list = document.querySelector('.my-parks-li');
+  var listId = list.getAttribute('id');
+  var listNodes = document.querySelectorAll('.my-parks-li');
+  for (var i = 0; i < listNodes.length; i++) {
+    if (listNodes[i].getAttribute('id') === listId) {
+      listNodes[i].remove();
+    }
   }
-}
+  for (i = 0; i < data.myParks.length; i++) {
+    if (listId === data.myParks[i].id.toString()) {
+      data.myParks.splice(i, 1);
+      data.myParksId--;
+    }
+  }
+  myParksView();
+});
 
 if (data.view === 'home-page') {
   homeView();
