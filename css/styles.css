@@ -139,7 +139,7 @@ nav a {
   font-size: 20px;
 }
 
-/* Modal */
+/* Modal For Add to My Parks Button */
 
 .modal-container {
   display: flex;
@@ -231,4 +231,54 @@ nav a {
 .remove-park {
   color: red;
   font-size: 1.5rem;
+}
+
+/* Modal for Remove My Parks */
+.my-parks-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.my-parks-modal-content {
+  background-color: #054d28;
+  text-align: center;
+  width: 400px;
+  height: 200px;
+  border-radius: 5px;
+  color: white;
+}
+
+.my-parks-modal-content h3 {
+  font-size: 1.5rem;
+  font-family: sans-serif;
+  margin-bottom: 3.125rem;
+}
+
+.my-parks-modal-content button {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.remove-yes {
+  background-color: beige;
+  color: green;
+  border: none;
+  border-radius: 5px;
+  width: 4rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.remove-no {
+  background-color: beige;
+  color: red;
+  border: none;
+  border-radius: 5px;
+  width: 4rem;
+  height: 2rem;
+  cursor: pointer;
 }

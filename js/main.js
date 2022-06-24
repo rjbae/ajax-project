@@ -237,6 +237,17 @@ function renderMyParks(parkData) {
   $removeA.setAttribute('class', 'remove-park');
   $removeP.appendChild($removeA);
 
+  var $myParksModal = document.querySelector('.my-parks-modal');
+  $removeP.addEventListener('click', function () {
+    $myParksModal.className = 'my-parks-modal background';
+  });
+
+  var $noButton = document.querySelector('.remove-no');
+  $noButton.addEventListener('click', function () {
+    $myParksModal.className = 'my-parks-modal hidden';
+  });
+
+  // var $yesButton = document.querySelector('.remove-yes');
   return $li;
 }
 
@@ -248,12 +259,13 @@ function domContentLoaded(event) {
     $myParksList.appendChild(myParksResult);
   }
 }
+
 if (data.view === 'home-page') {
   homeView();
 } else if (data.view === 'parks-result') {
   parksView();
 } else if (data.view === 'parks-info') {
   parkInfoView();
-} else {
+} else if (data.view === 'my-parks-page') {
   myParksView();
 }
