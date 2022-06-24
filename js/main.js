@@ -7,7 +7,7 @@ var $select = document.querySelector('.stateSelect');
 var $selectedPark = document.querySelector('.selected-park');
 var $myParksPage = document.querySelector('.my-parks');
 var $myParksNav = document.querySelector('.nav-parks');
-// var $myParksList = document.querySelector('.my-parks-list');
+var $myParksList = document.querySelector('.my-parks-list');
 
 $homeNav.addEventListener('click', homeView);
 $myParksNav.addEventListener('click', myParksView);
@@ -74,7 +74,7 @@ function getState(name) {
       $firstColumn.appendChild($image);
 
       var $parkName = document.createElement('a');
-      $parkName.setAttribute('href', '#');
+      $parkName.setAttribute('href', '#parks-info');
       $parkName.setAttribute('class', 'state-link');
       $parkName.setAttribute('id', park.parkCode);
       $parkName.textContent = park.fullName;
@@ -159,7 +159,7 @@ function renderStateInfo(parkCode) {
       $parkTextDiv.appendChild($activitiesLabel);
 
       var $activitiesText = document.createElement('p');
-      $activitiesText.textContent = parkData.activities[0].name + ', ' + parkData.activities[1].name + ', ' + parkData.activities[2].name + ', ' + parkData.activities[3].name + ', ' + parkData.activities[4].name;
+      $activitiesText.textContent = parkData.activities[0].name + ', ' + parkData.activities[1].name;
       $parkTextDiv.appendChild($activitiesText);
 
       var $directionsLabel = document.createElement('b');
@@ -194,41 +194,66 @@ function renderStateInfo(parkCode) {
       });
 
       var $yesButton = document.querySelector('.yes-button');
-      $yesButton.addEventListener('click', function () {
+      $yesButton.addEventListener('click', function (event) {
         $modalContainer.className = 'modal-container hidden';
-        myParksView();
+        event.preventDefault();
         var myParksList = {};
         myParksList.name = parkData.fullName;
+        myParksList.img = parkData.images[0].url;
+        myParksList.id = data.myParksId;
         data.myParks.unshift(myParksList);
         data.myParksId++;
+        $myParksList.prepend(myParksList);
+        myParksView();
       });
     }
   });
 }
 
-// function renderMyParks(parkData) {
-//   var $li = document.createElement('li');
+function renderMyParks(parkData) {
+  var $li = document.createElement('li');
+  $li.setAttribute('id', parkData.id);
 
-// var $myParksImg = document.createElement('img');
-// $myParksImg.setAttribute('src', parkData.img[0].url);
-// $li.appendChild($myParksImg);
+  var $myParksImg = document.createElement('img');
+  $myParksImg.setAttribute('src', parkData.img);
+  $myParksImg.setAttribute('class', 'my-parks-img');
+  $li.appendChild($myParksImg);
 
-//   var $pElement = document.createElement('p');
-//   $li.appendChild($pElement);
+  var $pElement = document.createElement('p');
+  $li.appendChild($pElement);
 
-//   var $aElement = document.createElement('a');
-//   $aElement.setAttribute('href', '#');
-//   $aElement.setAttribute('class', 'park-link');
-//   $aElement.textContent = parkData.fullName;
-//   $pElement.appendChild($aElement);
+  var $aElement = document.createElement('a');
+  $aElement.setAttribute('href', '#');
+  $aElement.setAttribute('class', 'park-link');
+  $aElement.textContent = parkData.name;
+  $pElement.appendChild($aElement);
 
-//   var $removeP = document.createElement('p');
-//   $li.appendChild($removeP);
+  var $removeP = document.createElement('p');
+  $li.appendChild($removeP);
 
-//   var $removeA = document.createElement('a');
-//   $removeA.setAttribute('href', '#');
-//   $removeA.setAttribute('class', 'remove-park');
-//   $removeP.appendChild($removeA);
+  var $removeA = document.createElement('a');
+  $removeA.textContent = 'Remove Park';
+  $removeA.setAttribute('href', '#');
+  $removeA.setAttribute('class', 'remove-park');
+  $removeP.appendChild($removeA);
 
-//   $myParksList.appendChild($li);
-// }
+  return $li;
+}
+
+document.addEventListener('DOMContentLoaded', domContentLoaded);
+
+function domContentLoaded(event) {
+  for (var i = 0; i < data.myParks.length; i++) {
+    var myParksResult = renderMyParks(data.myParks[i]);
+    $myParksList.appendChild(myParksResult);
+  }
+}
+if (data.view === 'home-page') {
+  homeView();
+} else if (data.view === 'parks-result') {
+  parksView();
+} else if (data.view === 'parks-info') {
+  parkInfoView();
+} else {
+  myParksView();
+}
