@@ -200,6 +200,7 @@ function renderStateInfo(parkCode) {
         var myParksList = {};
         myParksList.name = parkData.fullName;
         myParksList.img = parkData.images[0].url;
+        myParksList.parkCode = parkData.parkCode;
         myParksList.id = data.myParksId;
         data.myParks.unshift(myParksList);
         data.myParksId++;
@@ -211,6 +212,7 @@ function renderStateInfo(parkCode) {
 }
 
 function renderMyParks(parkData) {
+
   var $li = document.createElement('li');
   $li.setAttribute('id', parkData.id);
 
@@ -219,14 +221,15 @@ function renderMyParks(parkData) {
   $myParksImg.setAttribute('class', 'my-parks-img');
   $li.appendChild($myParksImg);
 
-  var $pElement = document.createElement('p');
-  $li.appendChild($pElement);
+  var $parkName = document.createElement('p');
+  $li.appendChild($parkName);
 
   var $aElement = document.createElement('a');
   $aElement.setAttribute('href', '#');
   $aElement.setAttribute('class', 'park-link');
+  $aElement.setAttribute('id', parkData.parkCode);
   $aElement.textContent = parkData.name;
-  $pElement.appendChild($aElement);
+  $parkName.appendChild($aElement);
 
   var $removeP = document.createElement('p');
   $li.appendChild($removeP);
@@ -236,6 +239,11 @@ function renderMyParks(parkData) {
   $removeA.setAttribute('href', '#');
   $removeA.setAttribute('class', 'remove-park');
   $removeP.appendChild($removeA);
+
+  $aElement.addEventListener('click', function (event) {
+    parkInfoView();
+    renderStateInfo(event.target.id);
+  });
 
   var $myParksModal = document.querySelector('.my-parks-modal');
   $removeP.addEventListener('click', function () {
