@@ -45,20 +45,15 @@ a:hover {
 }
 
 /* Hero Section */
-
-/* .hero {
-  position: relative;
-  max-width: 100%;
-  height: auto;
+.hero {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
 }
 
 .yosemite-img {
-  position: absolute;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  padding: 1.25rem;
-} */
+  max-width: 100%;
+}
 
 /* Search Bar Section */
 .search-bar {
