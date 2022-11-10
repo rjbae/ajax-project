@@ -6,6 +6,10 @@ header {
   display: flex;
   justify-content: left;
   padding-left: 2.5rem;
+
+  @media screen {
+    min-width: 768px;
+  }
 }
 
 nav a {
@@ -39,6 +43,10 @@ nav a {
   padding: 3.125rem;
   background-color: #054d28;
   width: 100%;
+
+  @media screen {
+    min-width: 768px;
+  }
 }
 
 .search-bar input {
