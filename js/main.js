@@ -1,13 +1,13 @@
-var $homeNav = document.querySelector('.nav-home');
-var $homePage = document.querySelector('.home-page');
-var $parksResult = document.querySelector('.parks-list');
-var $form = document.querySelector('.search-bar');
-var $input = document.querySelector('.search-button');
-var $select = document.querySelector('.stateSelect');
-var $selectedPark = document.querySelector('.selected-park');
-var $myParksPage = document.querySelector('.my-parks');
-var $myParksNav = document.querySelector('.nav-parks');
-var $myParksList = document.querySelector('.my-parks-list');
+const $homeNav = document.querySelector('.nav-home');
+const $homePage = document.querySelector('.home-page');
+const $parksResult = document.querySelector('.parks-list');
+const $form = document.querySelector('.search-bar');
+const $input = document.querySelector('.search-button');
+const $select = document.querySelector('.stateSelect');
+const $selectedPark = document.querySelector('.selected-park');
+const $myParksPage = document.querySelector('.my-parks');
+const $myParksNav = document.querySelector('.nav-parks');
+const $myParksList = document.querySelector('.my-parks-list');
 
 $homeNav.addEventListener('click', homeView);
 $myParksNav.addEventListener('click', myParksView);
